@@ -6,13 +6,10 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        redseatheme: {
           primary: "#385170",
           secondary: "#f6d860",
-          first: "#ececec",
-          second: "#9fd3c7",
-          third: "#142d4c",
-          accent: "#37cdbe",
+          accent: "#142d4c",
           neutral: "#3d4451",
           "base-100": "#ffffff",
         },

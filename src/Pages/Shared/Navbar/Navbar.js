@@ -13,6 +13,7 @@ const Navbar = () => {
                         <li><Link to="/home">Home</Link></li>
                         <li><Link to="/blogs">Blogs</Link></li>
                         <li><Link to="/portfolio">My Portfolio</Link></li>
+                        <li><Link to="/login">Login</Link></li>
                     </ul>
                 </div>
                 <Link className="btn btn-ghost normal-case text-xl" to="/home">REDSEA Ltd</Link>
@@ -22,10 +23,8 @@ const Navbar = () => {
                     <li><Link to="/home">Home</Link></li>
                     <li><Link to="/blogs">Blogs</Link></li>
                     <li><Link to="/portfolio">My Portfolio</Link></li>
+                    <li><Link to="/login">Login</Link></li>
                 </ul>
-            </div>
-            <div className="navbar-end">
-                <Link className="btn" to="/home">Get started</Link>
             </div>
         </div>
     );
