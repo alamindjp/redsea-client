@@ -20,7 +20,7 @@ const Footer = () => {
                 <div>
                     <span className="footer-title">Social</span>
                     <Link className="link link-hover" to="/home">Twitter</Link>
-                    <Link className="link link-hover" to="/home">Facebook</Link>
+                    <a className="link link-hover" href='https://www.facebook.com/alamindjp/' target="_blank">Facebook</a>
                     <Link className="link link-hover" to="/home">Github</Link>
                 </div>
             </div>
