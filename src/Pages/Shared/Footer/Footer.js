@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    const today = new Date();
+    const year = today.getFullYear();
     return (
         <footer className='bg-primary text-secondary mt-10'>
             <div className="footer footer-center grid-cols-3 p-4 ">
@@ -26,7 +28,7 @@ const Footer = () => {
             </div>
             <div className="divider m-0"></div>
             <div className="footer footer-center p-4 ">
-                <p>Copyright © 2022 - All right reserved by REDSEA Ltd</p>
+                <p>Copyright © {year} - All right reserved by REDSEA Ltd</p>
             </div>
         </footer>
     );
