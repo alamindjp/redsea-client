@@ -1,47 +1,76 @@
 import React from 'react';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../../Components/Loading';
+import auth from '../../firebase.init';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
-import Loading from '../../Components/Loading';
 
-const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+const SignUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
 
+    const navigate = useNavigate();
     let signInError;
 
-    if (loading || gLoading) {
+    if (loading || gLoading || updating) {
         return <Loading></Loading>
     }
 
-    if (error || gError) {
-        signInError = <p className='text-red-400'>{error?.message || gError?.message}</p>
+    if (error || gError || UpdateError) {
+        signInError = <p className='text-red-400'>{error?.message || gError?.message || UpdateError}</p>
     }
     if (user || gUser) {
         console.log(user || gUser)
     }
 
-    const onSubmit = data => {
-        console.log(data);
-        signInWithEmailAndPassword(data.email, data.password)
-    }
+
+
+
+    const onSubmit = async data => {
+        await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName: data.name });
+    };
 
     return (
         <div>
             <Navbar />
             <div className="card w-4/5 sm:w-2/3 md:w-3/5 lg:w-2/5 mx-auto min-h-50 bg-base-100 shadow-xl mt-10">
                 <div className="card-body">
-                    <h1 className='text-4xl font-bold text-center'>Login</h1>
+                    <h2 className="text-4xl font-bold text-center">Sing Up</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className='w-full mx-auto'>
+                        {/* register your input into the hook by invoking the "register" function */}
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text text-lg">Name</span>
+                            </label>
+                            <input type="text"
+                                placeholder="Your Name"
+                                className="input input-bordered w-full"
+                                {...register("name", {
+                                    minLength: {
+                                        value: 5,
+                                        message: 'Name must be longer'
+                                    },
+                                    required: {
+                                        value: true,
+                                        message: 'Enter a Name'
+                                    }
+                                })} />
+                            <label className="label">
+                                {errors.name?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.name && <span>{errors.name.message}</span>}</span>}
+                                {errors.name?.type === 'required' && <span className="label-text-alt text-red-400">{errors.name && <span>{errors.name.message}</span>}</span>}
+
+                            </label>
+                        </div>
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-lg">Email</span>
@@ -62,6 +91,7 @@ const Login = () => {
                             <label className="label">
                                 {errors.email?.type === 'required' && <span className="label-text-alt text-red-400">{errors.email && <span>{errors.email.message}</span>}</span>}
                                 {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-400">{errors.email && <span>{errors.email.message}</span>}</span>}
+
                             </label>
                         </div>
                         <div className="form-control w-full">
@@ -78,33 +108,30 @@ const Login = () => {
                                     },
                                     minLength: {
                                         value: 6,
-                                        message: 'must be 6 characters or longer' // JS only: <p>error message</p> TS only support string
+                                        message: 'must be 6 characters or longer'
                                     }
                                 })} />
                             <label className="label">
                                 {errors.password?.type === 'required' && <span className="label-text-alt text-red-400">{errors.password && <span>{errors.password.message}</span>}</span>}
                                 {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.password && <span>{errors.password.message}</span>}</span>}
+
                             </label>
                         </div>
-                        {signInError}
 
-                        <div className="form-control mt-6 w-2/4 mx-auto">
-                            <input className="btn btn-primary" type="submit" value='Login' />
+                        {signInError}
+                        <div className='form-control mt-6 w-2/4 mx-auto'>
+                            <input className="btn btn-primary" type="submit" value="Sing Up" />
                         </div>
                     </form>
-                    <div>
-                        <div className='block sm:flex items-center mt-3'>
-                            <p><small>New to RedSea Ltd.<Link to="/signup" className="text-primary"> Create Account</Link></small></p>
-                            <button className='btn btn-outline btn-primary'>Forget Password</button>
-                        </div>
-                    </div>
+                    <p><small>Already have an account <Link to="/login" className="text-primary"> Please Login</Link></small></p>
+
                     <div className="divider">or</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline w-2/3 mx-auto">Continue with google</button>
                 </div>
             </div>
             <Footer />
-        </div >
+        </div>
     );
 };
 
-export default Login;
+export default SignUp;
