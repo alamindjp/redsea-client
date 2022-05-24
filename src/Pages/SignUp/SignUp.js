@@ -10,15 +10,14 @@ import Navbar from '../Shared/Navbar/Navbar';
 const SignUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
-
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     let signInError;
 
     if (loading || gLoading || updating) {
@@ -38,8 +37,8 @@ const SignUp = () => {
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name });
+        navigate('/home')
     };
-
     return (
         <div>
             <Navbar />
@@ -123,7 +122,7 @@ const SignUp = () => {
                             <input className="btn btn-primary" type="submit" value="Sing Up" />
                         </div>
                     </form>
-                    <p><small>Already have an account <Link to="/login" className="text-primary"> Please Login</Link></small></p>
+                    <p><small>Already have an account <Link to="/login" className="text-neutral"> Please Login</Link></small></p>
 
                     <div className="divider">or</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline w-2/3 mx-auto">Continue with google</button>
