@@ -7,6 +7,8 @@ import MyPortfolio from "./Pages/MyPortfolio/MyPortfolio";
 import Purchase from "./Pages/Purchase/Purchase";
 import NotFound from "./Pages/Shared/NotFound/NotFound";
 import SignUp from "./Pages/SignUp/SignUp";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
         } />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer/>
     </div>
   );
 }

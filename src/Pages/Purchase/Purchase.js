@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Loading from '../../Components/Loading';
 import auth from '../../firebase.init';
 import Footer from '../Shared/Footer/Footer';
@@ -13,6 +14,7 @@ const Purchase = () => {
     const [booked, setBooked] = useState([])
     const { _id, name, image, quantity, minOrders, price, description } = booked;
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -26,9 +28,10 @@ const Purchase = () => {
         return <Loading />
     }
 
-    const onSubmit = (data, event) => {
+    const onSubmit = (data) => {
         const booking = {
             bookingId: _id,
+            bookingName: name,
             consumer: user.displayName,
             consumerEmail: user.email,
             purchaseQuantity: data.quantity,
@@ -42,9 +45,27 @@ const Purchase = () => {
 
             },
         }
+        
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                <Loading/>
+                if (!data?.success) {
+                   return toast(`${data.booking?.bookingName} Already booking order please update an orders`)
+                }
+                toast("Order Confirm")
+                navigate('/home')
+            })
+            console.log(data);
 
-        console.log(booking);
     }
+
 
 
     return (
@@ -52,7 +73,7 @@ const Purchase = () => {
             <Navbar />
             <h1 className="text-3xl text-center m-7 font-bold text-neutral">Purchase Confirmation</h1>
             <div className="card lg:card-side mt-20 w-9/12 mx-auto">
-                <div className="card card-compact bg-base-200 h-2/3 mt-24 max-w-lg p-5">
+                <div className="card card-compact bg-base-200 h-2/3 mt-24 max-w-md mx-auto p-5">
                     <div className=''>
                         <figure><img className='p-5' style={{ width: "200px" }} src={image} alt={name} /></figure>
                         <div className="card-body text-justify">
@@ -139,7 +160,7 @@ const Purchase = () => {
                             {errors.phone?.type === 'minLength' && <span className="label-text-alt text-red-400">{errors.phone && <span>{errors.phone.message}</span>}</span>}
                         </label>
                     </div>
-                    <div className="form-control w-3/4 mx-auto gap-2">
+                    <div className="form-control w-3/4 mx-auto ">
                         <h3 className='text-lg text-primary'>Consumer address</h3>
                         <input type="text"
                             placeholder='Enter village/lane'
@@ -167,7 +188,7 @@ const Purchase = () => {
                         <label className="label">
                             {errors.city?.type === 'required' && <span className="label-text-alt text-red-400">{errors.city && <span>{errors.city.message}</span>}</span>}
                         </label>
-                        <div className='lg:grid grid-cols-2'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2'>
                             <input type="text"
                                 placeholder='State'
                                 {...register("state", {
@@ -176,7 +197,7 @@ const Purchase = () => {
                                         message: 'Enter state name'
                                     }
                                 })}
-                                className="input input-bordered mr-2"
+                                className="input input-bordered mb-2 sm:mb-0 sm:mr-2"
                             />
                             <input type="number"
                                 placeholder='Postal Code'
