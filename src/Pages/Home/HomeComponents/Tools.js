@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Product from './Product';
-
+export 
 const Tools = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
@@ -14,6 +14,7 @@ const Tools = () => {
                     products.map(product => <Product
                         key={product._id}
                         product={product}
+                        // setPurchaseProduct={setPurchaseProduct}
                     />)
                 }
             </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
@@ -21,17 +21,21 @@ const Login = () => {
     let from = location.state?.from?.pathname || "/";
 
     let signInError;
+    useEffect(() => {
+        if (user || gUser) {
+            navigate(from, { replace: true });
+
+        }
+    }, [user, gUser, from, navigate])
 
     if (loading || gLoading) {
         return <Loading></Loading>
     }
 
     if (error || gError) {
-        signInError = <p className='text-red-400'>{error?.message || gError?.message}</p>
+        signInError = <p className='alert alert-error text-white shadow-lg'>{error?.message || gError?.message}</p>
     }
-    if (user || gUser) {
-        navigate(from, { replace: true });
-    }
+    
 
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password)

@@ -14,12 +14,12 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="home" element={<Home />} />
-        <Route path="blogs" element={<Blogs />} />
-        <Route path="portfolio" element={<MyPortfolio />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="purchase" element={
+        <Route path="/home" element={<Home />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/portfolio" element={<MyPortfolio />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/product/:productId" element={
           <RequireAuth>
             <Purchase />
           </RequireAuth>

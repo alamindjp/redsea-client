@@ -25,7 +25,7 @@ const SignUp = () => {
     }
 
     if (error || gError || UpdateError) {
-        signInError = <p className='text-red-400'>{error?.message || gError?.message || UpdateError}</p>
+        signInError = <p className='alert alert-error text-white shadow-lg'>{error?.message || gError?.message || UpdateError}</p>
     }
     if (user || gUser) {
         console.log(user || gUser)

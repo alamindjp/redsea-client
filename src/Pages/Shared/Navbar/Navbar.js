@@ -11,7 +11,6 @@ const Navbar = () => {
     if (loading) {
         return <Loading/>
     }
-    console.log(user)
     const logout = () => {
         signOut(auth);
     };
