@@ -62,7 +62,7 @@ const Login = () => {
                                     },
                                     pattern: {
                                         value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/,
-                                        message: 'Enter valid Email' // JS only: <p>error message</p> TS only support string
+                                        message: 'Enter valid Email' 
                                     }
                                 })} />
                             <label className="label">
