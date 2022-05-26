@@ -22,6 +22,7 @@ const DashBoard = () => {
                         <li><Link to="/dashboard" className=' bg-red-200 py-2 mb-2'>My Profile</Link></li>
                         <li><Link to="/dashboard/orders" className=' bg-red-200 py-2 mb-2'>My Orders</Link></li>
                         <li><Link to="/dashboard/review" className=' bg-red-200 py-2 mb-2'>My Reviews</Link></li>
+                        <li><Link to="/dashboard/users" className=' bg-red-200 py-2 mb-2'>All Users</Link></li>
                     </ul>
 
                 </div>

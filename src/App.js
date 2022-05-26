@@ -13,6 +13,7 @@ import DashBoard from "./Pages/Dashboard/DashBoard";
 import MyProfile from "./Pages/Dashboard/Components/MyProfile";
 import MyOrders from "./Pages/Dashboard/Components/MyOrders";
 import Review from "./Pages/Dashboard/Components/Review";
+import Users from "./Pages/Dashboard/Components/Users";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route index element={<MyProfile />} />
           <Route path="orders" element={<MyOrders />} />
           <Route path="review" element={<Review />} />
+          <Route path="users" element={<Users />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

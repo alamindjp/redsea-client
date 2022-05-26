@@ -6,6 +6,7 @@ import Navbar from '../Shared/Navbar/Navbar';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../../Components/Loading';
+import useToken from '../../Components/hooks/useToken';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -18,15 +19,16 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const navigate = useNavigate();
     const location = useLocation();
+    const [token] = useToken(user || gUser)
     let from = location.state?.from?.pathname || "/";
 
     let signInError;
     useEffect(() => {
-        if (user || gUser) {
+        if (token) {
             navigate(from, { replace: true });
 
         }
-    }, [user, gUser, from, navigate])
+    }, [token, navigate,from])
 
     if (loading || gLoading) {
         return <Loading></Loading>

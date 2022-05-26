@@ -2,6 +2,7 @@ import React from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import useToken from '../../Components/hooks/useToken';
 import Loading from '../../Components/Loading';
 import auth from '../../firebase.init';
 import Footer from '../Shared/Footer/Footer';
@@ -17,6 +18,9 @@ const SignUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [token] = useToken(user || gUser)
+
     const navigate = useNavigate()
     let signInError;
 
@@ -27,8 +31,8 @@ const SignUp = () => {
     if (error || gError || UpdateError) {
         signInError = <p className='alert alert-error text-white shadow-lg'>{error?.message || gError?.message || UpdateError}</p>
     }
-    if (user || gUser) {
-        console.log(user || gUser)
+    if (token) {
+        navigate('/home')
     }
 
 
@@ -37,7 +41,7 @@ const SignUp = () => {
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name });
-        navigate('/home')
+        
     };
     return (
         <div>
@@ -83,7 +87,7 @@ const SignUp = () => {
                                         message: 'Enter Email'
                                     },
                                     pattern: {
-                                        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/,
+                                        value: /^[a-z0-9._-]+@[a-z.-]+\.[a-z]{2,6}/,
                                         message: 'Enter valid Email' // JS only: <p>error message</p> TS only support string
                                     }
                                 })} />
