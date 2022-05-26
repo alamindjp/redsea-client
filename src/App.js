@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import RequireAuth from "./Components/RequireAuth";
 import Blogs from "./Pages/Blogs/Blogs";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -14,6 +13,8 @@ import MyProfile from "./Pages/Dashboard/Components/MyProfile";
 import MyOrders from "./Pages/Dashboard/Components/MyOrders";
 import Review from "./Pages/Dashboard/Components/Review";
 import Users from "./Pages/Dashboard/Components/Users";
+import RequireAuth from "./Components/hooks/RequireAuth";
+import RequireAdmin from "./Components/hooks/RequireAdmin";
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
           <Route index element={<MyProfile />} />
           <Route path="orders" element={<MyOrders />} />
           <Route path="review" element={<Review />} />
-          <Route path="users" element={<Users />} />
+          <Route path="users" element={<RequireAdmin><Users /></RequireAdmin>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
