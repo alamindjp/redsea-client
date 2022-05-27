@@ -15,6 +15,7 @@ import Review from "./Pages/Dashboard/Components/Review";
 import Users from "./Pages/Dashboard/Components/Users";
 import RequireAuth from "./Components/hooks/RequireAuth";
 import RequireAdmin from "./Components/hooks/RequireAdmin";
+import AddProduct from "./Pages/Dashboard/Components/AddProduct";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path="orders" element={<MyOrders />} />
           <Route path="review" element={<Review />} />
           <Route path="users" element={<RequireAdmin><Users /></RequireAdmin>} />
+          <Route path="add_product" element={<RequireAdmin><AddProduct /></RequireAdmin>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

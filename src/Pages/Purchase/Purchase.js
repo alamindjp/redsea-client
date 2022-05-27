@@ -55,6 +55,7 @@ const Purchase = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 <Loading/>
                 if (!data?.success) {
                    return toast(`${data.booking?.bookingName} Already booking order please update an orders`)

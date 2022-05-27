@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Product = ({ product, setPurchaseProduct }) => {
+const Product = ({ product}) => {
     const {_id, name, image, quantity, minOrders, price, description } = product;
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const Product = ({ product, setPurchaseProduct }) => {
                 <p><span className='font-bold'>Price</span>: ${price} <small>(per unit)</small></p>
                 <p><span className='font-bold'>Available Quantity</span>: {quantity} ps</p>
                 <p><span className='font-bold'>Minimum Orders</span>: {minOrders} ps</p>
-                <p>{description.slice(0, 160)}</p>
+                <p>{description?.slice(0, 160)}</p>
                 <div className="card-actions justify-center">
                     <button className="btn btn-outline btn-success py-0" onClick={() => handlePurchase(_id)}>Purchase</button>
                 </div>
