@@ -18,7 +18,7 @@ const Product = ({ product}) => {
                 <p><span className='font-bold'>Price</span>: ${price} <small>(per unit)</small></p>
                 <p><span className='font-bold'>Available Quantity</span>: {quantity} ps</p>
                 <p><span className='font-bold'>Minimum Orders</span>: {minOrders} ps</p>
-                <p>{description?.slice(0, 160)}</p>
+                <p>{description?.slice(0, 150)}</p>
                 <div className="card-actions justify-center">
                     <button className="btn btn-outline btn-success py-0" onClick={() => handlePurchase(_id)}>Purchase</button>
                 </div>

@@ -74,7 +74,7 @@ const AddProduct = () => {
                                 message: 'Enter Product Name'
                             },
                             maxLength: {
-                                value: 20,
+                                value: 30,
                                 message: "Please enter under 20 character"
                             },
                             minLength: {
@@ -152,11 +152,11 @@ const AddProduct = () => {
                                 message: 'Enter Product description'
                             },
                             maxLength: {
-                                value: 200,
+                                value: 300,
                                 message: "Please enter under 200 character"
                             },
                             minLength: {
-                                value: 60,
+                                value: 100,
                                 message: "Please enter proper product description"
                             }
                         })} />

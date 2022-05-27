@@ -12,10 +12,11 @@ const Purchase = () => {
     const [user, loading] = useAuthState(auth);
     const { productId } = useParams()
     const [booked, setBooked] = useState([])
+    const [disabled, setDisabled] = useState(true)
     const { _id, name, image, quantity, minOrders, price, description } = booked;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-
+    
 
     useEffect(() => {
         const url = `http://localhost:5000/product/${productId}`
@@ -24,9 +25,11 @@ const Purchase = () => {
             .then(data => setBooked(data))
     }, [productId])
 
+
     if (loading) {
         return <Loading />
     }
+
 
     const onSubmit = (data) => {
         const booking = {
@@ -63,7 +66,7 @@ const Purchase = () => {
                 toast("Order Confirm")
                 navigate('/home')
             })
-            console.log(data);
+        console.log(data);
 
     }
 
@@ -115,14 +118,18 @@ const Purchase = () => {
                         <label className="label">
                             <span className="label-text text-lg">Product Quantity</span>
                         </label>
-                        <input type="number"
+                        <input
+                            name='quantity'
+                            type="number"
                             placeholder="Enter Quantity"
                             className="input input-bordered w-full"
+                        
                             {...register("quantity", {
                                 required: {
                                     value: true,
                                     message: 'Enter number of purchase'
                                 },
+                                onChange: (e) => { (parseInt(e.target.value) < minOrders) ? setDisabled(true): setDisabled(false)},
                                 max: {
                                     value: quantity,
                                     message: "Please enter under available quantity"
@@ -231,7 +238,7 @@ const Purchase = () => {
                     </div>
 
                     <div className="form-control mt-6 w-2/4 mx-auto">
-                        <input className="btn btn-primary" type="submit" value='Order Now' />
+                        <input disabled={disabled} className="btn btn-primary" type="submit" value='Order Now' /> 
                     </div>
                 </form>
             </div>
