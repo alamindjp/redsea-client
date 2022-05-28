@@ -7,7 +7,7 @@ const MyProfile = () => {
     const [pUser, loading] = useAuthState(auth)
     const [userData, setUserData] = useState({})
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${pUser.email}`, {
+        fetch(` https://blooming-fortress-90492.herokuapp.com/user/${pUser.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

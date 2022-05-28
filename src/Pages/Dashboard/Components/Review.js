@@ -21,7 +21,7 @@ const Review = () => {
 
         }
 
-        fetch('http://localhost:5000/review', {
+        fetch(' https://blooming-fortress-90492.herokuapp.com/review', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

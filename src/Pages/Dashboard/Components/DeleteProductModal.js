@@ -5,7 +5,7 @@ const DeleteProductModal = ({ deleteProduct, refetch, setDeleteProduct }) => {
     const {_id, name } = deleteProduct;
 
     const removeProduct = id => {
-        fetch(`http://localhost:5000/product/delete/${id}`, {
+        fetch(` https://blooming-fortress-90492.herokuapp.com/product/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

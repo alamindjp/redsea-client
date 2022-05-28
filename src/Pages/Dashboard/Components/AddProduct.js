@@ -6,7 +6,7 @@ import Loading from '../../../Components/Loading';
 
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const { isLoading } = useQuery('product', () => fetch('http://localhost:5000/product').then(res => res.json()))
+    const { isLoading } = useQuery('product', () => fetch(' https://blooming-fortress-90492.herokuapp.com/product').then(res => res.json()))
     const imgUploadedKey = '9ffbbd2202757b6fb55f4e1ec7a438c1';
 
 
@@ -31,7 +31,7 @@ const AddProduct = () => {
                         minOrders: data.minOrders,
                         description: data.description
                     }
-                    fetch('http://localhost:5000/product', {
+                    fetch(' https://blooming-fortress-90492.herokuapp.com/product', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

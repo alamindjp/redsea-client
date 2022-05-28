@@ -4,7 +4,7 @@ import Loading from '../../../Components/Loading';
 import ManageOrder from './ManageOrder';
 
 const ManageOrders = () => {
-    const { data: manageOrders, isLoading} = useQuery('manageOrders', () => fetch('http://localhost:5000/booking/all', {
+    const { data: manageOrders, isLoading} = useQuery('manageOrders', () => fetch(' https://blooming-fortress-90492.herokuapp.com/booking/all', {
         headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
         }
