@@ -21,7 +21,6 @@ const AddProduct = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
                 if (result.success) {
                     const img = result.data.url;
                     const product = {
@@ -43,10 +42,9 @@ const AddProduct = () => {
                         .then(res => res.json())
                         .then(data => {
                             if (!data?.success) {
-                                return toast(`${data.product?.name} Already added`)
+                                return toast.error(`${data.product?.name} Already added`)
                             }
-                            console.log(data);
-                            toast(`successfully add Product`);
+                            toast.success(`successfully add Product`);
                             reset();
                         })
                 }

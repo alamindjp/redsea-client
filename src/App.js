@@ -31,7 +31,7 @@ function App() {
         <Route path="/portfolio" element={<MyPortfolio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/product/:productId" element={
+        <Route path="/tool/:productId" element={
           <RequireAuth>
             <Purchase />
           </RequireAuth>

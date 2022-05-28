@@ -58,7 +58,6 @@ const Purchase = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 <Loading/>
                 if (!data?.success) {
                    return toast(`${data.booking?.bookingName} Already booking order please update an orders`)
@@ -66,7 +65,6 @@ const Purchase = () => {
                 toast("Order Confirm")
                 navigate('/home')
             })
-        console.log(data);
 
     }
 
@@ -129,7 +127,7 @@ const Purchase = () => {
                                     value: true,
                                     message: 'Enter number of purchase'
                                 },
-                                onChange: (e) => { (parseInt(e.target.value) < minOrders) ? setDisabled(true): setDisabled(false)},
+                                onChange: (e) => { (parseInt(e.target.value) < minOrders ||parseInt(e.target.value)>quantity) ? setDisabled(true): setDisabled(false)},
                                 max: {
                                     value: quantity,
                                     message: "Please enter under available quantity"
