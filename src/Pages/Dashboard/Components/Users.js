@@ -4,10 +4,10 @@ import Loading from '../../../Components/Loading';
 import User from './User'
 
 const Users = () => {
-    const { data: users, isLoading,refetch } = useQuery('users', () => fetch('http://localhost:5000/user', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/user', {
         method: 'GET',
         headers: {
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }
     ).then(res => res.json()))
@@ -16,7 +16,7 @@ const Users = () => {
     }
     return (
         <div className='w-full mx-auto'>
-            <h2 className='text-4xl text-purple-200 bg-slate-400 text-center py-3'>All Users</h2>
+            <h2 className='text-4xl text-white bg-slate-400 text-center py-3'>All Users: { users.length}</h2>
             <div className="overflow-x-auto sm:w-11/12 mx-auto mt-5">
                 <table className="table table-normal w-full border">
                    

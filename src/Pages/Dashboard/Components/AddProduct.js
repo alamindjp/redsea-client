@@ -35,7 +35,8 @@ const AddProduct = () => {
                     fetch('http://localhost:5000/product', {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
                         body: JSON.stringify(product)
                     })
@@ -74,7 +75,7 @@ const AddProduct = () => {
                                 message: 'Enter Product Name'
                             },
                             maxLength: {
-                                value: 30,
+                                value: 20,
                                 message: "Please enter under 20 character"
                             },
                             minLength: {
@@ -152,11 +153,11 @@ const AddProduct = () => {
                                 message: 'Enter Product description'
                             },
                             maxLength: {
-                                value: 300,
+                                value: 200,
                                 message: "Please enter under 200 character"
                             },
                             minLength: {
-                                value: 100,
+                                value: 60,
                                 message: "Please enter proper product description"
                             }
                         })} />

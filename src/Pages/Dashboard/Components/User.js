@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const user = ({ user, index, refetch }) => {
+const User = ({ user, index, refetch }) => {
     const { email, role } = user;
     const makeAdmin = () => {
         fetch(`http://localhost:5000/user/admin/${email}`, {
@@ -14,7 +14,7 @@ const user = ({ user, index, refetch }) => {
                 if (res.status === 403) {
                     toast.error('Failed to make an admin')
                 }
-                res.json()
+                return res.json()
             })
             .then(data => {
                 console.log(data)
@@ -24,6 +24,11 @@ const user = ({ user, index, refetch }) => {
                 }
         })
     }
+    const removeUser = (data) => {
+        
+    
+    }
+
     return (
         <tr>
             <th>{index}</th>
@@ -31,11 +36,11 @@ const user = ({ user, index, refetch }) => {
             <td>
                 <div className='sm:flex justify-center'>
                     {role !== 'admin' && <div className='mb-1 mr-1'><button onClick={makeAdmin} className="btn btn-xs">Add Admin</button></div>}
-                    <div><button className="btn btn-xs">remove</button></div>
+                    {role === 'user' && <div><button className="btn btn-xs" onClick={removeUser}>remove</button></div>}
                 </div>
             </td>
         </tr>
     );
 };
 
-export default user;
+export default User;

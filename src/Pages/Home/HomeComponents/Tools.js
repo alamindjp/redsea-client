@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Product from './Product';
+import Tool from './Tool';
 const Tools = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
@@ -12,9 +12,9 @@ const Tools = () => {
             <h1 className="text-3xl text-center text-accent font-bold">TOOLS</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-20 m-2'>
                 {
-                    products?.map(product => <Product
-                        key={product._id}
-                        product={product}
+                    products?.map(tool => <Tool
+                        key={tool._id}
+                        tool={tool}
                     />)
                 }
             </div>

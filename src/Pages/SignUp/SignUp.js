@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,6 +22,11 @@ const SignUp = () => {
     const [token] = useToken(user || gUser)
 
     const navigate = useNavigate()
+    useEffect(() => {
+        if (token) {
+            navigate('/home')
+        }
+    }, [navigate, token])
     let signInError;
 
     if (loading || gLoading || updating) {
@@ -31,14 +36,13 @@ const SignUp = () => {
     if (error || gError || UpdateError) {
         signInError = <p className='alert alert-error text-white shadow-lg'>{error?.message || gError?.message || UpdateError}</p>
     }
-    if (token) {
-        navigate('/home')
-    }
+    
 
 
 
 
     const onSubmit = async data => {
+        console.log(data.name)
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name });
         
@@ -126,7 +130,7 @@ const SignUp = () => {
                             <input className="btn btn-primary" type="submit" value="Sing Up" />
                         </div>
                     </form>
-                    <p><small>Already have an account <Link to="/login" className="text-neutral"> Please Login</Link></small></p>
+                    <p><small>Already have an account? <Link to="/login" className="text-neutral"> Please Login</Link></small></p>
 
                     <div className="divider">or</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline w-2/3 mx-auto">Continue with google</button>
