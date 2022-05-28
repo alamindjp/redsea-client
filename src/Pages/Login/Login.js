@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../../Components/Loading';
 import useToken from '../../Components/hooks/useToken';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const [email, setEmail] = useState('');
     const [
         signInWithEmailAndPassword,
         user,
@@ -30,7 +32,7 @@ const Login = () => {
         }
     }, [token, navigate,from])
 
-    if (loading || gLoading) {
+    if (loading || gLoading || sending) {
         return <Loading></Loading>
     }
 
@@ -57,6 +59,7 @@ const Login = () => {
                             <input type="text"
                                 placeholder="Your Email"
                                 className="input input-bordered w-full"
+                                onChange={(e) => setEmail(e.target.value)}
                                 {...register("email", {
                                     required: {
                                         value: true,
@@ -103,7 +106,13 @@ const Login = () => {
                     <div>
                         <div className='block sm:flex items-center mt-3'>
                             <p><small>New to RedSea Ltd.<Link to="/signup" className="text-neutral"> Create Account</Link></small></p>
-                            <button className='btn btn-outline btn-primary'>Forget Password</button>
+                            <button
+                                className='btn btn-outline btn-primary'
+                                onClick={async () => {
+                                    await sendPasswordResetEmail(email);
+                                    alert('Sent email');
+                                }}
+                            >Forget Password</button>
                         </div>
                     </div>
                     <div className="divider">or</div>
