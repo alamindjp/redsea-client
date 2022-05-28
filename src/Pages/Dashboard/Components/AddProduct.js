@@ -123,7 +123,7 @@ const AddProduct = () => {
                 </div>
                 <div className="form-control w-4/5 mx-auto">
                     <label className="label">
-                        <span className="label-text text-lg">Product Quantity</span>
+                        <span className="label-text text-lg">Minimum Orders</span>
                     </label>
                     <input type="number"
                         placeholder="Enter Minimum Orders"

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const DeleteProductModal = ({ deleteProduct, refetch, setDeleteProduct }) => {
     const {_id, name } = deleteProduct;
 
-    const removeProduct = id => {
+    const cancelOrder = id => {
         fetch(` https://blooming-fortress-90492.herokuapp.com/product/delete/${id}`, {
             method: 'DELETE',
             headers: {
@@ -31,8 +31,8 @@ const DeleteProductModal = ({ deleteProduct, refetch, setDeleteProduct }) => {
                     <h3 className="font-bold text-lg text-red-500">Are You Sure?</h3>
                     <p className="py-4">You want to delete product : "{ name }" </p>
                     <div className="modal-action">
-                        <button className="btn" onClick={() => removeProduct(_id)}>Confirm</button>
-                        <label for="delete-product-modal" className="btn">Cancel</label>
+                        <button className="btn" onClick={() => cancelOrder(_id)}>Confirm</button>
+                        <label htmlFor="delete-product-modal" className="btn">Cancel</label>
                     </div>
                 </div>
             </div>

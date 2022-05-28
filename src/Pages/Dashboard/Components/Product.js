@@ -12,7 +12,7 @@ const Product = ({ product, refetch, setDeleteProduct }) => {
             </td>
             <td>{name}</td>
             <td>
-                <label for="delete-product-modal" onClick={() => setDeleteProduct(product)} className="btn btn-xs btn-red bg-red-500">Remove</label>
+                <label htmlFor="delete-product-modal" onClick={() => setDeleteProduct(product)} className="btn btn-xs btn-red bg-red-500">Remove</label>
             </td>
         </tr>
     );
