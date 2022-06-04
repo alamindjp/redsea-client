@@ -13,7 +13,6 @@ const Home = () => {
         <div>
             <Navbar />
             <HomeBanner />
-            <div>Checking git</div>
             <div className='divider my-10'></div>
             <Tools />
             <div className='divider my-10'></div>
